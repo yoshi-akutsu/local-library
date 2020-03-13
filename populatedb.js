@@ -18,7 +18,7 @@ var BookInstance = require('./models/bookinstance')
 
 
 var mongoose = require('mongoose');
-var mongoDB = userArgs[0];
+var mongoDB = 'mongodb+srv://yoshiAdmin:tablet2020@cluster0-wmjxw.mongodb.net/local_library?retryWrites=true&w=majority';
 mongoose.connect(mongoDB, { useNewUrlParser: true });
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
