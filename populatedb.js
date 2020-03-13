@@ -86,7 +86,9 @@ function bookCreate(title, summary, isbn, author, genre, cb) {
 function bookInstanceCreate(book, imprint, due_back, status, cb) {
   bookinstancedetail = { 
     book: book,
-    imprint: imprint
+    imprint: imprint,
+    due_back: due_back,
+    status: status
   }    
   if (due_back != false) bookinstancedetail.due_back = due_back
   if (status != false) bookinstancedetail.status = status
@@ -94,6 +96,7 @@ function bookInstanceCreate(book, imprint, due_back, status, cb) {
   var bookinstance = new BookInstance(bookinstancedetail);    
   bookinstance.save(function (err) {
     if (err) {
+      console.log(bookinstancedetail)
       console.log('ERROR CREATING BookInstance: ' + bookinstance);
       cb(err, null)
       return
@@ -169,37 +172,37 @@ function createBooks(cb) {
 function createBookInstances(cb) {
     async.parallel([
         function(callback) {
-          bookInstanceCreate(books[0], 'London Gollancz, 2014.', false, 'Available', callback)
+          bookInstanceCreate(books[0].title, 'London Gollancz, 2014.', false, 'Available', callback)
         },
         function(callback) {
-          bookInstanceCreate(books[1], ' Gollancz, 2011.', false, 'Loaned', callback)
+          bookInstanceCreate(books[1].title, ' Gollancz, 2011.', false, 'Loaned', callback)
         },
         function(callback) {
-          bookInstanceCreate(books[2], ' Gollancz, 2015.', false, false, callback)
+          bookInstanceCreate(books[2].title, ' Gollancz, 2015.', false, false, callback)
         },
         function(callback) {
-          bookInstanceCreate(books[3], 'New York Tom Doherty Associates, 2016.', false, 'Available', callback)
+          bookInstanceCreate(books[3].title, 'New York Tom Doherty Associates, 2016.', false, 'Available', callback)
         },
         function(callback) {
-          bookInstanceCreate(books[3], 'New York Tom Doherty Associates, 2016.', false, 'Available', callback)
+          bookInstanceCreate(books[3].title, 'New York Tom Doherty Associates, 2016.', false, 'Available', callback)
         },
         function(callback) {
-          bookInstanceCreate(books[3], 'New York Tom Doherty Associates, 2016.', false, 'Available', callback)
+          bookInstanceCreate(books[3].title, 'New York Tom Doherty Associates, 2016.', false, 'Available', callback)
         },
         function(callback) {
-          bookInstanceCreate(books[4], 'New York, NY Tom Doherty Associates, LLC, 2015.', false, 'Available', callback)
+          bookInstanceCreate(books[4].title, 'New York, NY Tom Doherty Associates, LLC, 2015.', false, 'Available', callback)
         },
         function(callback) {
-          bookInstanceCreate(books[4], 'New York, NY Tom Doherty Associates, LLC, 2015.', false, 'Maintenance', callback)
+          bookInstanceCreate(books[4].title, 'New York, NY Tom Doherty Associates, LLC, 2015.', false, 'Maintenance', callback)
         },
         function(callback) {
-          bookInstanceCreate(books[4], 'New York, NY Tom Doherty Associates, LLC, 2015.', false, 'Loaned', callback)
+          bookInstanceCreate(books[4].title, 'New York, NY Tom Doherty Associates, LLC, 2015.', false, 'Loaned', callback)
         },
         function(callback) {
-          bookInstanceCreate(books[0], 'Imprint XXX2', false, false, callback)
+          bookInstanceCreate(books[0].title, 'Imprint XXX2', false, false, callback)
         },
         function(callback) {
-          bookInstanceCreate(books[1], 'Imprint XXX3', false, false, callback)
+          bookInstanceCreate(books[1].title, 'Imprint XXX3', false, false, callback)
         }
         ],
         // Optional callback
