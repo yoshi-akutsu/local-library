@@ -11,25 +11,23 @@ var AuthorSchema = new Schema(
     }
 );
 
-// Virtual for author's full name
-AuthorSchema
-.virtual('name')
-.get(()=> {
+// Virtual for author "full" name.
+AuthorSchema.virtual('name').get(function() {
     var fullname = '';
+  
     if (this.first_name && this.family_name) {
-        fullname = this.family_name + ' ' + this.first_name;
+      fullname = this.family_name + ', ' + this.first_name;
     }
-    if (!this.first_name && !this.family_name){
-        fullname = '';
+  
+    if (!this.first_name && !this.family_name) {
+      fullname = '';
     }
-
     return fullname;
 });
 
 // Virtual for author's lifespan
 AuthorSchema
-.virtual('lifespan')
-.get(()=> {
+.virtual('lifespan').get(function() {
     var lifespan = 0;
     if(!this.date_of_death) {
         lifespan = (new Date().getFullYear() - this.date_of_birth.getYear()).toString();
@@ -42,8 +40,8 @@ AuthorSchema
 
 // Virtual for author's URL
 AuthorSchema
-.virtual('url')
-.get(()=> {
+.virtual('URL')
+.get(function() {
     return '/catalog/author/' + this._id;
 });
 
